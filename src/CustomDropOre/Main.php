@@ -19,38 +19,24 @@ class Main extends PluginBase implements Listener
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 	
-	public function onBreak(BlockBreakEvent $ev){
-		if($ev->getBlock()->getId() == 16){
-			$ev->setDrops(array(Item::get(263, 0, 1)));
-			$ev->setXpDropAmount(mt_rand(0, 2));
-		}
-		if($ev->getBlock()->getId() == 15){
-			$ev->setDrops(array(Item::get(265, 0, 1)));
-		}
-		if($ev->getBlock()->getId() == 14){
-			$ev->setDrops(array(Item::get(266, 0, 1)));
-		}
-		if($ev->getBlock()->getId() == 21){
-			$ev->setDrops(array(Item::get(351, 4, 1)));
-			$ev->setXpDropAmount(mt_rand(2, 5));
-		}
-		if($ev->getBlock()->getId() == 73){
-			$ev->setDrops(array(Item::get(331, 0, 1)));
-			$ev->setXpDropAmount(mt_rand(1, 5));
-		}
-		if($ev->getBlock()->getId() == 153){
-			$ev->setDrops(array(Item::get(406, 0, 1)));
-			$ev->setXpDropAmount(mt_rand(2, 5));
-		}
-		if($ev->getBlock()->getId() == 56){
-			$ev->setDrops(array(Item::get(264, 0, 1)));
-			$ev->setXpDropAmount(mt_rand(3, 7));
-		}
-		if($ev->getBlock()->getId() == 129){
-			$ev->setDrops(array(Item::get(388, 0, 1)));
-			$ev->setXpDropAmount(mt_rand(3, 7));
-		}
-	}
+	/* Code by DragoVN */
+        public function onBreak(BlockBreakEvent $ev){
+	       // Block id
+	       $idb = $ev->getBlock()->getId();
+	       // Array for block need drop item
+	       $array_1 = [16, 15, 14, 21, 73, 153, 56, 129];
+	       // Items drop
+	       $array_2 = [
+	              16 => [263, 0, 1], 15 => [265, 0, 1],
+		      14 => [266, 0, 1], 21 => [251, 4, 1],
+		      73 => [331, 0, 1], 153 => => [406, 0, 1], 56 => [264, 0, 1],
+		      129 => [388, 0, 1]
+	       ];
+	       if(in_array($idb, $array_1)){
+		      $ev->setDrops(array(Item::get($array_2[$idb][0], $array_2[$idb][1], $array_2[$idb][2])));
+		      $ev->setXpDropAmount(mt_rand(0, $idb/($idb-1.5)));
+	       }		
+        }
 	
 	public function onDisable(){
 		$this->getLogger()->info("[CustomDropOre] Disable! stay Strong");
